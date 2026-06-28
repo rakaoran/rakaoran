@@ -14,7 +14,6 @@ from typing import Any
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-
 START = "<!-- profile-metrics:start -->"
 END = "<!-- profile-metrics:end -->"
 API_URL = "https://api.github.com/graphql"
@@ -73,7 +72,12 @@ query CommitTotal($login: String!, $from: DateTime!, $to: DateTime!) {
 
 
 def iso8601(value: datetime) -> str:
-    return value.astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return (
+        value.astimezone(timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
 
 def graphql(token: str, query: str, variables: dict[str, Any]) -> dict[str, Any]:
@@ -174,7 +178,9 @@ def yearly_windows(created_at: str, now: datetime) -> list[tuple[datetime, datet
     return windows
 
 
-def collect_total_commits(login: str, token: str, created_at: str, now: datetime) -> int:
+def collect_total_commits(
+    login: str, token: str, created_at: str, now: datetime
+) -> int:
     total = 0
     for start, end in yearly_windows(created_at, now):
         data = graphql(
@@ -198,20 +204,22 @@ def bar(percent: float) -> str:
 
 def stat_block(metrics: dict[str, Any]) -> str:
     rows = [
-        ("stars", fmt_int(metrics["stars"])),
-        ("commits", fmt_int(metrics["commits"])),
-        ("commits, last 365d", fmt_int(metrics["commits_last_year"])),
-        ("merged pull requests", fmt_int(metrics["merged_pull_requests"])),
+        ("Stars", fmt_int(metrics["stars"])),
+        ("Commits", fmt_int(metrics["commits"])),
+        ("Commits (last 365d)", fmt_int(metrics["commits_last_year"])),
+        ("Merged PRs", fmt_int(metrics["merged_pull_requests"])),
     ]
     label_width = max(len(label) for label, _ in rows)
     value_width = max(len(value) for _, value in rows)
-    return "\n".join(f"{label:<{label_width}}  {value:>{value_width}}" for label, value in rows)
+    return "\n".join(
+        f"{label:<{label_width}}  {value:>{value_width}}" for label, value in rows
+    )
 
 
 def language_block(language_sizes: dict[str, int]) -> str:
     total = sum(language_sizes.values())
     if total == 0:
-        return f'none         {bar(0)}   0.00%'
+        return f"none         {bar(0)}   0.00%"
 
     ordered = sorted(language_sizes.items(), key=lambda item: item[1], reverse=True)
     top_languages = ordered[:LANG_LIMIT]
@@ -244,7 +252,7 @@ def render(metrics: dict[str, Any]) -> str:
 </tr>
 </table>
 
-<sub>last updated: {updated}</sub>
+<sub>Last updated: {updated}</sub>
 <!-- profile-metrics:end -->"""
 
 
@@ -269,7 +277,9 @@ def infer_login() -> str | None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--user", default=os.environ.get("GITHUB_USERNAME") or infer_login())
+    parser.add_argument(
+        "--user", default=os.environ.get("GITHUB_USERNAME") or infer_login()
+    )
     parser.add_argument("--readme", default="README.md")
     args = parser.parse_args()
 
