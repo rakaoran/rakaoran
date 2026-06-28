@@ -20,7 +20,6 @@ API_URL = "https://api.github.com/graphql"
 BAR_WIDTH = 20
 LANG_LIMIT = 10
 
-
 PROFILE_QUERY = """
 query ProfileMetrics($login: String!, $from: DateTime!, $to: DateTime!, $repoCursor: String) {
   user(login: $login) {
