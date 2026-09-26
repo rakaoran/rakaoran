@@ -30,5 +30,5 @@ PLpgSQL     [░░░░░░░░░░░░░░░░░░░░]   0.0
 </tr>
 </table>
 
-<sub>Last updated: 2026-09-25</sub>
+<sub>Last updated: 2026-09-26</sub>
 <!-- profile-metrics:end -->
