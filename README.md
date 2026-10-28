@@ -7,7 +7,7 @@ No bloat. No over-engineering. Few dependencies.
 <tr>
 <td width="50%" valign="top">
 <pre>
-Stars                  5
+Stars                  6
 Commits              199
 Commits (last 365d)  199
 Merged PRs             0
@@ -30,5 +30,5 @@ Makefile    [░░░░░░░░░░░░░░░░░░░░]   0.3
 </tr>
 </table>
 
-<sub>Last updated: 2026-10-27</sub>
+<sub>Last updated: 2026-10-28</sub>
 <!-- profile-metrics:end -->
