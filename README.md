@@ -9,7 +9,7 @@ No bloat. No over-engineering. Few dependencies.
 <pre>
 Stars                  6
 Commits              199
-Commits (last 365d)  197
+Commits (last 365d)  189
 Merged PRs             0
 </pre>
 </td>
@@ -30,5 +30,5 @@ Makefile    [░░░░░░░░░░░░░░░░░░░░]   0.3
 </tr>
 </table>
 
-<sub>Last updated: 2026-11-23</sub>
+<sub>Last updated: 2026-11-24</sub>
 <!-- profile-metrics:end -->
